@@ -51,4 +51,12 @@ public class TodoRepositoryTest {
         Todo retrievedTodo = todoRepository.findById(todo.getId());
         assertEquals(todo, retrievedTodo);
     }
+
+    @Test
+    void itShouldDeleteTodoById() {
+        Todo todo = new Todo(1, "test", "test body", false);
+        todoRepository.save(todo);
+        todoRepository.deleteById(todo.getId());
+        assertEquals(null, todoRepository.findById(todo.getId()));
+    }
 }

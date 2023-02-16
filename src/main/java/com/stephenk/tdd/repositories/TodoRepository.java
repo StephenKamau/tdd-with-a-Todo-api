@@ -11,4 +11,7 @@ public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
     void deleteAll();
 
     Todo findById(long id);
+
+    void deleteById(long id);
+
 }

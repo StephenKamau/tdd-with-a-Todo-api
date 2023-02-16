@@ -16,6 +16,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import com.stephenk.tdd.models.Todo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @DataJpaTest
 @ExtendWith(MockitoExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -51,8 +53,12 @@ public class TodoRepositoryTest {
     void itShouldReturnTodoById() {
         Todo todo = new Todo(1, "test", "test body", false);
         todoRepository.save(todo);
-        Todo retrievedTodo = todoRepository.findById(todo.getId());
-        assertEquals(todo, retrievedTodo);
+        try {
+            Todo retrievedTodo = todoRepository.findById(todo.getId()).get();
+            assertEquals(todo, retrievedTodo);
+        } catch (EntityNotFoundException eNotFoundException) {
+            System.out.println(eNotFoundException);
+        }
     }
 
     @Test

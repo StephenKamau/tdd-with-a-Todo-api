@@ -1,6 +1,8 @@
 package com.stephenk.tdd.repositories;
 
 
+import java.util.Optional;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.stephenk.tdd.models.Todo;
@@ -10,7 +12,7 @@ public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
 
     void deleteAll();
 
-    Todo findById(long id);
+    Optional<Todo> findById(long id);
 
     void deleteById(long id);
 

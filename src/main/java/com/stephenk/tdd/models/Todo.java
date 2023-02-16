@@ -24,4 +24,7 @@ public class Todo {
     String title;
     String body;
     boolean isComplete;
+    public Todo orElseThrow(Object object) {
+        return null;
+    }
 }

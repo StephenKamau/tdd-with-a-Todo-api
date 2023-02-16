@@ -10,7 +10,7 @@ public interface TodoService {
 
     Page<Todo> getTodos(Pageable pageable);
 
-    Todo delete(long id);
+    void delete(long id);
 
     Todo getTodoById(long id);
 }

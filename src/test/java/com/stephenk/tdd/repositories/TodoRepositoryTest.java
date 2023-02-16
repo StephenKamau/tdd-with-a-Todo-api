@@ -30,7 +30,10 @@ public class TodoRepositoryTest {
 
     @Test
     void itShouldSaveTodo() {
-        Todo todo = new Todo(1, "test", "test body", false);
+        Todo todo = new Todo();
+        todo.setTitle("test");
+        todo.setBody("test body");
+        todo.setComplete(false);
         Todo savedTodo = todoRepository.save(todo);
         assertEquals(todo, savedTodo);
     }

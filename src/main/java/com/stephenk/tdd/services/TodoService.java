@@ -1,5 +1,7 @@
 package com.stephenk.tdd.services;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,5 +14,5 @@ public interface TodoService {
 
     void delete(long id);
 
-    Todo getTodoById(long id);
+    Optional<Todo> getTodoById(long id);
 }

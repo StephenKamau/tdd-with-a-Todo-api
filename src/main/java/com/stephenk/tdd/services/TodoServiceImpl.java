@@ -1,5 +1,7 @@
 package com.stephenk.tdd.services;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,14 @@ public class TodoServiceImpl implements TodoService {
         // Save todo
         Todo savedTodo = todoRepository.save(todo);
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("*********Saved todo********")
+        logMessage
+                .append("******************************")
+                .append(System.lineSeparator())
+                .append("Saved todo:")
                 .append(System.lineSeparator())
                 .append(savedTodo)
                 .append(System.lineSeparator())
-                .append("*********Saved todo********");
+                .append("******************************");
         logger.info(logMessage.toString());
         return savedTodo;
     }
@@ -46,24 +51,28 @@ public class TodoServiceImpl implements TodoService {
         // delete todo by id
         todoRepository.deleteById(id);
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("*********Deleted todo with Id:********")
+        logMessage.append("******************************")
+                .append(System.lineSeparator())
+                .append("Deleted todo: ")
                 .append(System.lineSeparator())
                 .append(id)
                 .append(System.lineSeparator())
-                .append("*********Deleted todo with Id:********");
+                .append("******************************");
         logger.info(logMessage.toString());
     }
 
     @Override
-    public Todo getTodoById(long id) {
+    public Optional<Todo> getTodoById(long id) {
         // fetch todo by id
-        Todo todo = todoRepository.findById(id).orElseThrow(()->new EntityNotFoundException());
+        Optional<Todo> todo = todoRepository.findById(id);
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("*********Fetched todo with Id:********")
+        logMessage.append("******************************")
+                .append(System.lineSeparator())
+                .append("Fetched todo with Id:")
                 .append(System.lineSeparator())
                 .append(todo)
                 .append(System.lineSeparator())
-                .append("*********Fetched todo with Id:********");
+                .append("******************************");
         logger.info(logMessage.toString());
         return todo;
     }

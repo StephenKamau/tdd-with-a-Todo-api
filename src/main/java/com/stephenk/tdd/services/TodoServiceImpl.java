@@ -1,27 +1,25 @@
 package com.stephenk.tdd.services;
 
-import java.util.Optional;
-
+import com.stephenk.tdd.models.Todo;
+import com.stephenk.tdd.repositories.TodoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.stephenk.tdd.models.Todo;
-import com.stephenk.tdd.repositories.TodoRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
-    private Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class);
+    public TodoServiceImpl(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
+    private final Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class);
 
     @Override
     public Todo save(Todo todo) {
@@ -29,6 +27,7 @@ public class TodoServiceImpl implements TodoService {
         Todo savedTodo = todoRepository.save(todo);
         StringBuilder logMessage = new StringBuilder();
         logMessage
+                .append(System.lineSeparator())
                 .append("******************************")
                 .append(System.lineSeparator())
                 .append("Saved todo:")
@@ -51,9 +50,11 @@ public class TodoServiceImpl implements TodoService {
         // delete todo by id
         todoRepository.deleteById(id);
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("******************************")
+        logMessage
                 .append(System.lineSeparator())
-                .append("Deleted todo: ")
+                .append("******************************")
+                .append(System.lineSeparator())
+                .append("Deleted todo with ID: ")
                 .append(System.lineSeparator())
                 .append(id)
                 .append(System.lineSeparator())
@@ -66,9 +67,12 @@ public class TodoServiceImpl implements TodoService {
         // fetch todo by id
         Optional<Todo> todo = todoRepository.findById(id);
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("******************************")
+        logMessage
                 .append(System.lineSeparator())
-                .append("Fetched todo with Id:")
+                .append("******************************")
+                .append(System.lineSeparator())
+                .append("Fetched todo with ID: ")
+                .append(id)
                 .append(System.lineSeparator())
                 .append(todo)
                 .append(System.lineSeparator())
